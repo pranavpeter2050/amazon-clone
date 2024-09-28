@@ -13,7 +13,7 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
         <Carousel :items-to-show="1" :wrap-around="true">
             <Slide v-for="slide in 10" :key="slide">
                 <div class="carousel__item">
-                    <img src="https://via.placeholder.com/1500x350.png/004466?text=Testing" alt="">
+                    <img src="https://via.placeholder.com/3000x1000.png/004466?text=Testing" alt="">
                 </div>
             </Slide>
 
@@ -21,6 +21,29 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
                 <Navigation />
             </template>
         </Carousel>
+
+        <div class="relative -mt-[300px]">
+            <div class="flex m-4 z-10 relative">
+                <div class="bg-white mx-2 p-2 text-md w-full text-center">
+                    You are on amazon.com. You can also shop on Amazon UK for millions of products with fast local delivery.
+                    <span class="underline text-teal-600 cursor-pointer">Click here to go to amazon.co.uk</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-3 m-4 z-10 relative">
+                <div class="p-1.5">
+                    <div class="bg-white p-5">
+                        <div class="text-2xl font-extrabold flex">Computers</div>
+                        <div class="flex">
+                            <img src="https://via.placeholder.com/1097x756" alt="" class="object-fill">
+                        </div>
+                        <div class="pt-3 -mb-2 text-teal-800 font-bold hover:underline hover:text-red-400 cursor-pointer">
+                            See More
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </AuthenticatedLayout>
 </template>
 
