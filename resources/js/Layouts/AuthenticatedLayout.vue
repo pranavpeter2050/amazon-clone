@@ -29,7 +29,7 @@ const accountAndListFunc = (bool) => {
 
             <div class="flex">
                 <!-- Inertia component <Link> -->
-                <Link class="text-white h-[50px] p-2 pt-3 border-[1px] border-gray-900 rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer"> 
+                <Link href="/" class="text-white h-[50px] p-2 pt-3 border-[1px] border-gray-900 rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer"> 
                     <img src="/images/logo/AMAZON_LOGO.png" alt="" width="100"> 
                 </Link>
             </div>
