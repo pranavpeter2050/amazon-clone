@@ -196,15 +196,18 @@ const accountAndListFunc = (bool) => {
             <div class="max-w-[1500px] mx-auto">
                 <div class="text-[23px] pt-4 font-extrabold">Recommended based on your shopping trends</div>
                 <div class="flex justify-center items-stretch">
-                    <div class="p-4 text-center mx-auto">
-                        <div class="w-[158px] h-[150px] overflow-hidden">
-                            <img src="https://via.placeholder.com/158x150" alt="">
-                        </div>
-                        <div class="w-[160px] text-[12px] py-2 text-teal-600 font-extrabold hover:text-red-600 cursor-pointer">
-                            This is a test title
-                        </div>
-                        <div class="flex justify-start">
-                            <div class="text-xs font-extrabold text-red-600 w-full text-left">$99.99</div>
+                    <div v-for="product in $page.props.random_products" :key="product">
+                        <div class="p-4 text-center mx-auto">
+                            <div class="w-[158px] h-[150px] overflow-hidden">
+                                <img :src="product.image" alt="">
+                            </div>
+                            <div class="w-[160px] text-[12px] py-2 text-teal-600 font-extrabold hover:text-red-600 cursor-pointer">
+                                {{ product.title.substring(0, 40) }}...
+                            </div>
+                            <div class="flex justify-start">
+                                <div class="text-xs font-extrabold text-red-600 w-full text-left">${{ product.price }}</div>
+                                <img width="50" src="/images/logo/PRIME_LOGO.png" alt="">
+                            </div>
                         </div>
                     </div>
                 </div>
