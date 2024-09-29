@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Address;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -35,7 +36,8 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user(),
+                'user' => auth()->check() ? auth()->user() : null,
+                'address' => auth()->check() ? Address::where('user_id', auth()->user()->id)->first() : null,
             ],
             'categories' => Category::all(),
             'random_products' => Product::inRandomOrder()->limit(8)->get(),

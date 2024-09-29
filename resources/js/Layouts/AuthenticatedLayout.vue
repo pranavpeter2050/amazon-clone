@@ -21,7 +21,7 @@ const accountAndListFunc = (bool) => {
 </script>
 
 <template>
-    <div class="min-w-[1150px] bg-gray-100 h-full">
+    <div class="min-w-[1150px] bg-gray-100 h-full">{{ $page.props.auth.user }}
         <div v-if="accountAndList" class="top-0 z-20 fixed w-full h-full bg-black bg-opacity-70"></div>
 
         <!-- header -->
