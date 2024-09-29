@@ -285,9 +285,11 @@ const accountAndListFunc = (bool) => {
                 Shop by Department
             </div>
 
-            <div class="hover:bg-gray-200 pl-6 pr-3">
-                <div class="py-2.5 text-[13px] text-black flex justify-between items-center hover:bg-gray-200 cursor-pointer">
-                    Computers <ChevronRightIcon :size="20" fillColor="#808080" />
+            <div v-for="cat in $page.props.categories" :key="cat">
+                <div class="hover:bg-gray-200 pl-6 pr-3">
+                    <Link href="/" class="py-2.5 text-[13px] text-black flex justify-between items-center hover:bg-gray-200 cursor-pointer">
+                        {{ cat.name }} <ChevronRightIcon :size="20" fillColor="#808080" />
+                    </Link>
                 </div>
             </div>
         </div>
