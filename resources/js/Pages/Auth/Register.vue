@@ -92,22 +92,31 @@ const submit = () => {
                 />
             </div>
 
-            <div class="mt-4 flex items-center justify-end">
-                <Link
-                    :href="route('login')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                    Already registered?
-                </Link>
 
+            <div class="my-3">
                 <PrimaryButton
-                    class="ms-4"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Register
+                    Continue
                 </PrimaryButton>
             </div>
+
+            <div class="text-xs pt-4">
+                By signing-in you agree to Amazon's Conditions of Use & Sale.
+                Please see our Privacy Notice, our Cookie Notice and our Interest-Based Ads Notice.
+            </div>
+
+            <div class="mt-4 flex items-center justify-start">
+                <Link
+                    :href="route('login')"
+                    class="rounded-md text-sm text-blue-700 hover:underline hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                    Sign in?
+                </Link>
+            </div>
+
+
         </form>
     </GuestLayout>
 </template>
