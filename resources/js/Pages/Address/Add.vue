@@ -29,6 +29,76 @@
           <option value="Germany">Germany</option>
           <option value="France">France</option>
         </select>
+
+        <div class="mt-4">
+          <InputLabel class="-mb-1.5" value="First name" />
+
+          <TextInput 
+            type="text"
+            class="mt-1 block w-full"
+            required
+          />
+        </div>
+
+        <div class="mt-3">
+          <InputLabel class="-mb-1.5" value="Last name" />
+
+          <TextInput 
+            type="text"
+            class="mt-1 block w-full"
+            required
+          />
+        </div>
+
+        <div class="mt-3">
+          <InputLabel class="-mb-1.5" value="Address" />
+
+          <TextInput 
+            type="text"
+            class="mt-1 block w-full"
+            required
+            placeholder="Address line 1"
+          />
+
+          <TextInput 
+            type="text"
+            class="mt-1 block w-full"
+            required
+            placeholder="Address line 2"
+          />
+        </div>
+
+        <div class="mt-3">
+          <div class="flex gap-2">
+            <div class="w-full">
+              <InputLabel class="-mb-1.5" value="City" />
+
+              <TextInput 
+                type="text"
+                class="mt-1 block w-full"
+                required
+                placeholder="City"
+              />
+            </div>
+            
+            <div class="w-full">
+              <InputLabel class="-mb-1.5" value="Postcode" />
+
+              <TextInput 
+                type="text"
+                class="mt-1 block w-full"
+                required
+                placeholder="Postcode"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <button class="bg-yellow-400 px-3 font-bold text-[14px] rounded-lg shadow-sm cursor-pointer">
+            Add address
+          </button>
+        </div>
       </form>
     </div>
   </AuthenticatedLayout>
@@ -40,5 +110,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import { toRefs } from 'vue';
 import MapMarkerOutlineIcon from 'vue-material-design-icons/MapMarkerOutline.vue';
 import PlusIcon from 'vue-material-design-icons/Plus.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import TextInput from '@/Components/TextInput.vue';
 
 </script>
