@@ -33,18 +33,20 @@
           Default: <img class="h-3 mt-1.5 ml-2" src="/images/logo/AMAZON_LOGO_DARK.png" alt="">
         </div>
         <div class="text-sm font-extrabold px-4 pt-4">
-          FIRSTNAME LASTNAME
+          {{ $page.props.auth.user.first_name }} {{ $page.props.auth.user.last_name }}
         </div>
         <div class="text-sm px-4">
-          <div>ADDR1</div>
-          <div>ADDR2</div>
-          <div>CITY</div>
-          <div>POSTCODE</div>
-          <div>COUNTRY</div>
+          <div>{{ $page.props.auth.address.addr1 }}</div>
+          <div>{{ $page.props.auth.address.addr2 }}</div>
+          <div>{{ $page.props.auth.address.city }}</div>
+          <div>{{ $page.props.auth.address.postcode }}</div>
+          <div>{{ $page.props.auth.address.country }}</div>
         </div>
         <div class="px-4 absolute bottom-0 pb-4">
           <Link 
-            href="/"
+            :href="route('address_options.destroy', { id: $page.props.auth.address.id })"
+            method="delete"
+            as="button"
             class="text-teal-700 text-sm font-extrabold hover:underline hover:text-red-700"
           >
             Remove

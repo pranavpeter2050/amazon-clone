@@ -3,7 +3,7 @@
 
   <AuthenticatedLayout>
     <div class="mt-8"></div>
-
+    
     <div class="max-w-[500px] mx-auto text-2xl font-extrabold">
       <div>Add a new address</div>
 
@@ -123,8 +123,8 @@ import TextInput from '@/Components/TextInput.vue';
 
 const form = useForm({
   country: 'United Kingdom',
-  first_name: usePage().props.value.auth.user.first_name,
-  last_name: usePage().props.value.auth.user.last_name,
+  first_name: usePage().props.auth.user.first_name,
+  last_name: usePage().props.auth.user.last_name,
   addr1: '',
   addr2: '',
   city: '',
