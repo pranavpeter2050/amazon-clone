@@ -192,7 +192,7 @@ const accountAndListFunc = (bool) => {
             <slot />
         </main>
 
-        <div class="w-full bg-white mt-10">
+        <div class="w-full bg-white mt-10 overflow-x-scroll">
             <div class="max-w-[1500px] mx-auto">
                 <div class="text-[23px] pt-4 font-extrabold">Recommended based on your shopping trends</div>
                 <div class="flex justify-center items-stretch">
