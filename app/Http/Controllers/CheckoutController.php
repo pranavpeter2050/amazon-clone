@@ -12,7 +12,17 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Checkout');
+        $stripe = new \Stripe\StripeClient('sk_test_51Q4x8MB4L3iPOj7LDQJRmYPWGotGu9gxkMJENEJZtvniM5UmYZk630x1CNnb8O2YUpuQaTmOryYCOjq25pFrjLiU00GMSXr56P');
+
+        $intent = $stripe->paymentIntents->create([
+            'amount' => 1099,
+            'currency' => 'usd',
+            'payment_method_types' => ['card'],
+        ]);
+
+        return Inertia::render('Checkout', [
+            'intent' => $intent
+        ]);
     }
 
     /**
