@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Head, router, useForm } from '@inertiajs/vue3';
 import { computed, onMounted, toRefs, ref } from 'vue';
 
 import { useCartStore } from '@/store/cart'
@@ -57,8 +57,16 @@ onMounted(() => {
     form.addEventListener("submit", function(event) {
       event.preventDefault();
       // Complete payment when the submit button is clicked
-      payWithCard(stripe, card, intent.value.clientSecret);
+      payWithCard(stripe, card, intent.value.client_secret);
     });
+
+    setTimeout(() => {
+      router.post('/checkout', {
+        total: totalWithoutDot(),
+        total_decimal: total,
+        items: cart.value
+      })
+    }, 10)
 })
 
 // Calls stripe.confirmCardPayment
@@ -133,7 +141,7 @@ const totalWithoutDot = () => {
 <template>
     <Head title="Checkout" />
 
-    <AuthenticatedLayout>{{ intent }}
+    <AuthenticatedLayout>
       <div class="p-4 mt-2 max-w-[1250px] mx-auto text-3xl font-extrabold">Checkout</div>
 
       <div class="flex max-w-[1250px] mx-auto pt-4">
@@ -154,19 +162,18 @@ const totalWithoutDot = () => {
         </div>
 
         <div class="w-4/12 border border-gray-400 rounded-md py-4 px-2">
-          <form >
+          <form id="payment-form">
             <div id="card-element">
               <!-- Stripe.js injects the Card Element -->
             </div>
 
             <div class="flex justify-between text-xl text-red-700 font-extrabold border-y border-y-gray-300 my-3 p-2">
               <div>Order total:</div>
-              <!-- <div v-if="order">USD: {{ order.total_decimal }}</div> -->
+              <div v-if="order">USD: {{ order.total_decimal }}</div>
             </div>
             <button id="submit" class="bg-yellow-400 hover:bg-yellow-500 rounded-md text-sm font-extrabold p-2">
-              <!-- <div v-if="isProcessing" id="button-text">Processing...</div>
-              <div v-else id="button-text">Place your order in USD</div> -->
-              <div id="button-text">Place your order in USD</div>
+              <div v-if="isProcessing" id="button-text">Processing...</div>
+              <div v-else id="button-text">Place your order in USD</div>
             </button>
 
             <p id="card-error" role="alert" class="text-red-700 text-center font-semibold"></p>
@@ -175,9 +182,13 @@ const totalWithoutDot = () => {
       </div>
 
       <div class="w-[1200px] mx-auto text-xl font-bold pb-2 underline">Items</div>
-      <div class="w-[1200px] mx-auto">
+      <div class="w-[1200px] mx-auto" v-for="prod in JSON.parse(order.items)" :key="prod">
         <div class="flex items-center py-1">
-          PROD DETAILS HERE
+          <img width="60" :src="prod.image" class="rounded-md" alt="">
+          <div class="ml-4">
+            <div class="text-lg font-semibold">{{ prod.title }}</div>
+            <div class="font-semibold text-red-700">${{ prod.price }}</div>
+          </div>
         </div>
       </div>
     </AuthenticatedLayout>

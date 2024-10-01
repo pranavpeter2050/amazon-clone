@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,23 +15,24 @@ class CheckoutController extends Controller
     {
         $stripe = new \Stripe\StripeClient('sk_test_51Q4x8MB4L3iPOj7LDQJRmYPWGotGu9gxkMJENEJZtvniM5UmYZk630x1CNnb8O2YUpuQaTmOryYCOjq25pFrjLiU00GMSXr56P');
 
+        $order = Order::where('user_id', '=', auth()->user()->id)
+                ->where('payment_intent', null)
+                ->first();
+
+        /* if (is_null($order)) {
+            return redirect()->route('checkout_success.index');
+        } */
+
         $intent = $stripe->paymentIntents->create([
-            'amount' => 1099,
+            'amount' => (int) $order->total,
             'currency' => 'usd',
             'payment_method_types' => ['card'],
         ]);
 
         return Inertia::render('Checkout', [
-            'intent' => $intent
+            'intent' => $intent,
+            'order' => $order
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -38,38 +40,38 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $res = Order::where('user_id', '=', auth()->user()->id)
+                ->where('payment_intent', null)
+                ->first();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        if (!is_null($res)) {
+            $res->total = $request->total;
+            $res->total_decimal = $request->total_decimal;
+            $res->items = json_encode($request->items);
+            $res->save();
+        } else {
+            $order = new Order();
+            $order->user_id = auth()->user()->id;
+            $order->total = $request->total;
+            $order->total_decimal = $request->total_decimal;
+            $order->items = json_encode($request->items);
+            $order->save();
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        return redirect()->route('checkout.index');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
-    }
+        $order = Order::where('user_id', '=', auth()->user()->id)
+                ->where('payment_intent', null)
+                ->first();
+        $order->payment_intent = $request['payment_intent'];
+        $order->save();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('checkout_success.index');
     }
 }
